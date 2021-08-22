@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SER-da-cRe">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Controller-->
+        <scene sceneID="tZt-Ql-0KH">
+            <objects>
+                <tabBarController storyboardIdentifier="TabController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SER-da-cRe" customClass="TabController" customModule="bMuse_WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OqO-Dy-f0Z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ZfX-Df-7pT" kind="relationship" relationship="viewControllers" id="VNb-Er-Ehd"/>
+                        <segue destination="3ry-js-TaZ" kind="relationship" relationship="viewControllers" id="8Fz-4t-NLF"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uk7-Rx-mBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-22" y="175"/>
+        </scene>
+        <!--HourlyWeather-->
+        <scene sceneID="G8K-9F-9im">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="HourlyWeather" storyboardName="HourlyWeather" id="ZfX-Df-7pT" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Hourly" image="ic-no-connect" id="JpF-Nk-WCl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gzF-HP-HIA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="657" y="77"/>
+        </scene>
+        <!--WeeklyWeather-->
+        <scene sceneID="DXa-HK-Nbf">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="WeeklyWeather" storyboardName="WeeklyWeather" id="3ry-js-TaZ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Weekly" image="ic-no-connect" id="aPk-0X-cMr"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dpo-KG-0YX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="660" y="246"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic-no-connect" width="25" height="25"/>
+    </resources>
+</document>
