@@ -9,5 +9,5 @@ import Foundation
 
 public enum WeatherType {
     case hourly
-    case weekly
+    case daily
 }

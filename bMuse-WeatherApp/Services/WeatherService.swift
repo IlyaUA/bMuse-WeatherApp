@@ -34,8 +34,8 @@ class WeatherService {
                 switch type {
                 case .hourly:
                     getHourlyWeather(completion: completion)
-                case .weekly:
-                    getWeeklyWeather(completion: completion)
+                case .daily:
+                    getdailyWeather(completion: completion)
                 }
                 print(error.localizedDescription)
             }
@@ -73,8 +73,8 @@ class WeatherService {
             switch type {
             case .hourly:
                 getHourlyWeather(completion: completion)
-            case .weekly:
-                getWeeklyWeather(completion: completion)
+            case .daily:
+                getdailyWeather(completion: completion)
             }
         } else {
             print("SAVE ERROR")
@@ -85,8 +85,8 @@ class WeatherService {
         switch type {
         case .hourly:
             getHourlyWeather(completion: completion)
-        case .weekly:
-            getWeeklyWeather(completion: completion)
+        case .daily:
+            getdailyWeather(completion: completion)
         }
     }
     
@@ -108,7 +108,7 @@ class WeatherService {
         }
     }
     
-    func getWeeklyWeather(completion: @escaping ([WeatherEntity]?) -> Void) {
+    func getdailyWeather(completion: @escaping ([WeatherEntity]?) -> Void) {
         guard let context = coreDataService.configureContext() else { return }
         let fetchRequest: NSFetchRequest<WeatherEntity> = WeatherEntity.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false

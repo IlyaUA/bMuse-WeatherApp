@@ -7,7 +7,7 @@
 
 import Alamofire
 
-enum WeatherRouter: APIConfiguration {
+enum WeathersRouter: APIConfiguration {
 
     case getWeather(lat: Double, lng: Double)
     

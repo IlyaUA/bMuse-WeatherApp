@@ -22,7 +22,7 @@ final class WeatherCell: UITableViewCell {
         if type == .hourly {
             date.text = model.date?.dateTime
         } else {
-            date.text = model.date?.formatted
+            date.text = model.date?.clearDate
         }
         
         wind.text = "Wind: " + String(model.wind_speed) + .meter

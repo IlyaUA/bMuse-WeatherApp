@@ -16,11 +16,14 @@ class CurrentWeatherView: NibView {
     
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var backgroundStackView: UIView!
     
     
     
     override func setupUI() {
-        
+        backgroundStackView.layer.borderWidth = 1
+        backgroundStackView.layer.borderColor = UIColor.white.cgColor
+        backgroundStackView.layer.cornerRadius = 15
     }
     
     // MARK: - Public methods
@@ -41,7 +44,7 @@ class CurrentWeatherView: NibView {
         updatedAtLabel.text = date
     }
     
-    func setWeatherIcon(with image: UIImage) {
+    func setWeatherIcon(with image: UIImage?) {
         weatherIcon.image = image
     }
     

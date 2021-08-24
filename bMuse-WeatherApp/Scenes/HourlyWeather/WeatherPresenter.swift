@@ -1,5 +1,5 @@
 //
-//  HourlyWeatherPresenter.swift
+//  WeatherPresenter.swift
 //  bMuse-WeatherApp
 //
 //  Created by Ilya Kharebashvili on 21.08.2021.
@@ -11,26 +11,33 @@ protocol CoordinateUpdateDelegate: AnyObject {
     func coordinateUpdated()
 }
 
-protocol HourlyWeatherPresenterProtocol: LifecyclePresenter {
-    var router: HourlyWeatherRouterProtocol { get }
+protocol WeatherPresenterProtocol: LifecyclePresenter {
+    var router: WeatherRouterProtocol { get }
     func openMapPicker()
     var weatherCount: Int { get }
     func configureCell(
         for tableView: UITableView,
         at indexPath: IndexPath
     ) -> UITableViewCell
+    func weatherTypeChanged(with index: Int)
+    func refreshData()
 }
 
-final class HourlyWeatherPresenter: HourlyWeatherPresenterProtocol {
+final class WeatherPresenter: WeatherPresenterProtocol {
     
     let weatherService = WeatherService.shared
     private var weatherData: [WeatherEntity] = []
+    private var weatherType: WeatherType = .hourly {
+        didSet {
+            updateWeather()
+        }
+    }
     
-    private weak var view: HourlyWeatherView?
-    private(set) var router: HourlyWeatherRouterProtocol
+    private weak var view: WeatherView?
+    private(set) var router: WeatherRouterProtocol
     
-    init(view: HourlyWeatherView?,
-         router: HourlyWeatherRouterProtocol) {
+    init(view: WeatherView?,
+         router: WeatherRouterProtocol) {
         
         self.view = view
         self.router = router
@@ -51,6 +58,22 @@ final class HourlyWeatherPresenter: HourlyWeatherPresenterProtocol {
         router.openMapPickerScreen()
     }
     
+    func weatherTypeChanged(with index: Int) {
+        switch index {
+        case 0:
+            weatherType = .hourly
+        case 1:
+            weatherType = .daily
+        default:
+            weatherType = .hourly
+        }
+        
+    }
+    
+    func refreshData() {
+        updateWeather()
+    }
+    
     // MARK: Private methods
     
     private func setupView() {
@@ -58,11 +81,12 @@ final class HourlyWeatherPresenter: HourlyWeatherPresenterProtocol {
     }
     
     private func updateWeather() {
-        weatherService.updateWeather() { [weak self] weather in
+        weatherService.updateWeather(type: weatherType) { [weak self] weather in
             guard let weather = weather else { return }
             self?.weatherData = weather
             self?.setCurrentWeather()
             self?.view?.reloadData()
+            self?.view?.endRefreshing()
         }
     }
     
@@ -70,11 +94,11 @@ final class HourlyWeatherPresenter: HourlyWeatherPresenterProtocol {
         guard let currentWeatherEntity = weatherService.getCurrentWeather() else { return }
         LocationService.shared.getCityName(lat: UserDefaults.standard.double(forKey: "latitude"),
                                            lng: UserDefaults.standard.double(forKey: "longitude")) { [weak self] result in
-            self?.view?.setupCurrentWeather(temp: String(currentWeatherEntity.temperature),
+            self?.view?.setupCurrentWeather(temp: String(currentWeatherEntity.temperature) + .celsius,
                                       cityName: result,
                                       date: currentWeatherEntity.date?.formatted ?? "",
                                       updAt: "Last update: " + (UserDefaults.standard.string(forKey: "updatedAt") ?? ""),
-                                      weatherIcon: nil)
+                                      weatherIcon: UIImage(named: currentWeatherEntity.next_1_hour_icon ?? ""))
         }
         
     }
@@ -89,7 +113,7 @@ final class HourlyWeatherPresenter: HourlyWeatherPresenterProtocol {
     }
 }
 
-extension HourlyWeatherPresenter {
+extension WeatherPresenter {
     // TableView metthods
     var weatherCount: Int {
         weatherData.count
@@ -98,13 +122,13 @@ extension HourlyWeatherPresenter {
     func configureCell(for tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(for: indexPath, cellType: WeatherCell.self)
         
-        cell.prepareView(model: weatherData[indexPath.row], type: .hourly)
-    
+        cell.prepareView(model: weatherData[indexPath.row], type: weatherType)
+        cell.backgroundColor = .clear
         return cell
     }
 }
 
-extension HourlyWeatherPresenter: CoordinateUpdateDelegate {
+extension WeatherPresenter: CoordinateUpdateDelegate {
     func coordinateUpdated() {
         updateWeather()
     }

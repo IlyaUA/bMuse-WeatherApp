@@ -14,7 +14,7 @@ protocol WeatherManagerProtocol {
 class WeatherManager: CommonNetworkManager, WeatherManagerProtocol {
     
     func getWeather(lat: Double, lng: Double, completion: @escaping (Result<WeatherModel, AFError>) -> Void) {
-        let request = WeatherRouter.getWeather(lat: lat, lng: lng)
+        let request = WeathersRouter.getWeather(lat: lat, lng: lng)
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

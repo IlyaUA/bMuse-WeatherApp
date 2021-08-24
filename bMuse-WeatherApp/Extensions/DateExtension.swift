@@ -53,6 +53,12 @@ extension Date {
         dateFormatter.dateFormat = "MMM d, h:mm a"
         return dateFormatter.string(from: self)
     }
+    
+    var clearDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d"
+        return dateFormatter.string(from: self)
+    }
 }
 
 

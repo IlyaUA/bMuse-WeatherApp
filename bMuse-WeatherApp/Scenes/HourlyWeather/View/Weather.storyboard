@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Weather View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="WeatherViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="WeatherViewController" customModule="bMuse_WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MVL-Fk-5ut" customClass="CurrentWeatherView" customModule="bMuse_WeatherApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="215"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0V4-N1-Cww">
+                                <rect key="frame" x="0.0" y="294" width="414" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7G5-bj-quS">
+                                <rect key="frame" x="20" y="261" width="374" height="32"/>
+                                <color key="backgroundColor" red="0.42117768529999999" green="0.62975358960000005" blue="0.88630557060000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <segments>
+                                    <segment title="Hourly"/>
+                                    <segment title="Daily"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="selectedSegmentTintColor" red="0.075117968019999995" green="0.46232306960000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="indexChanged:" destination="Y6W-OH-hqX" eventType="valueChanged" id="GPA-Re-m0m"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" red="0.48331898449999999" green="0.68504625559999999" blue="0.92944210770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="MVL-Fk-5ut" secondAttribute="trailing" id="53b-ME-8Qs"/>
+                            <constraint firstItem="7G5-bj-quS" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="AR4-gU-FLr"/>
+                            <constraint firstItem="MVL-Fk-5ut" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="AZk-9i-SLC"/>
+                            <constraint firstItem="7G5-bj-quS" firstAttribute="top" secondItem="MVL-Fk-5ut" secondAttribute="bottom" constant="2" id="CPE-x9-GCJ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="7G5-bj-quS" secondAttribute="trailing" constant="20" id="DXo-ku-ebQ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="0V4-N1-Cww" secondAttribute="bottom" id="Fhh-G3-yum"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="0V4-N1-Cww" secondAttribute="trailing" id="L9a-Xn-y2g"/>
+                            <constraint firstItem="0V4-N1-Cww" firstAttribute="top" secondItem="7G5-bj-quS" secondAttribute="bottom" constant="2" id="Tbf-NK-6cs"/>
+                            <constraint firstItem="MVL-Fk-5ut" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="p6l-8B-A0M"/>
+                            <constraint firstItem="MVL-Fk-5ut" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.24" id="rAR-Dt-YTx"/>
+                            <constraint firstItem="0V4-N1-Cww" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="vmM-dG-HXe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="aSh-ck-ke7">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="location" id="Wpg-uX-bmH">
+                            <connections>
+                                <action selector="openMapPicker:" destination="Y6W-OH-hqX" id="mMb-ZS-6GU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="currentWeather" destination="MVL-Fk-5ut" id="xYm-qa-LjY"/>
+                        <outlet property="segmentedControl" destination="7G5-bj-quS" id="G4w-Ld-8Bl"/>
+                        <outlet property="tableView" destination="0V4-N1-Cww" id="274-w4-fqV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="63.768115942028992" y="130.58035714285714"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="location" width="30" height="30"/>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

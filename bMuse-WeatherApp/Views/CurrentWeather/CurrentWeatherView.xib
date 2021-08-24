@@ -4,12 +4,12 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrentWeatherView" customModule="bMuse_WeatherApp" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundStackView" destination="fD1-l6-Le0" id="Ux5-LN-5Li"/>
                 <outlet property="backgroundView" destination="mRu-0v-uht" id="qU0-T4-KXs"/>
                 <outlet property="cityLabel" destination="zse-DK-FlF" id="hQw-ZG-o5V"/>
                 <outlet property="dateLabel" destination="czw-IL-yBB" id="NBm-Ui-ZKg"/>
@@ -33,30 +33,30 @@
                             <rect key="frame" x="15" y="15" width="227" height="178"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="qJE-rS-LLe">
-                                    <rect key="frame" x="20" y="20" width="207" height="138"/>
+                                    <rect key="frame" x="20" y="20" width="187" height="138"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Запорожье" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zse-DK-FlF">
-                                            <rect key="frame" x="0.0" y="0.0" width="101.5" height="23"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zse-DK-FlF">
+                                            <rect key="frame" x="0.0" y="0.0" width="101.5" height="38"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNw-h2-tA3">
-                                            <rect key="frame" x="0.0" y="36" width="49.5" height="49"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNw-h2-tA3">
+                                            <rect key="frame" x="0.0" y="38" width="50" height="50"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="41"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Понедельник, 05.11.2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czw-IL-yBB">
-                                            <rect key="frame" x="0.0" y="98.5" width="145" height="14.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czw-IL-yBB">
+                                            <rect key="frame" x="0.0" y="88" width="50" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Обновлено: 13.08.2021 13:56:54" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6QZ-fA-DnQ">
-                                            <rect key="frame" x="0.0" y="126" width="161" height="12"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6QZ-fA-DnQ">
+                                            <rect key="frame" x="0.0" y="138" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -65,14 +65,13 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="qJE-rS-LLe" firstAttribute="top" secondItem="fD1-l6-Le0" secondAttribute="top" constant="20" id="1xx-8C-ztP"/>
-                                <constraint firstAttribute="trailing" secondItem="qJE-rS-LLe" secondAttribute="trailing" id="DDb-Ds-WMN"/>
+                                <constraint firstAttribute="trailing" secondItem="qJE-rS-LLe" secondAttribute="trailing" constant="20" id="JBO-gM-vvT"/>
                                 <constraint firstItem="qJE-rS-LLe" firstAttribute="leading" secondItem="fD1-l6-Le0" secondAttribute="leading" constant="20" id="a34-C1-LVY"/>
-                                <constraint firstAttribute="trailing" secondItem="qJE-rS-LLe" secondAttribute="trailing" id="kgI-Hr-u5l"/>
                                 <constraint firstAttribute="bottom" secondItem="qJE-rS-LLe" secondAttribute="bottom" constant="20" id="qnP-Dt-wZW"/>
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.42117801310000003" green="0.63378423449999999" blue="0.88630527260000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstItem="fD1-l6-Le0" firstAttribute="top" secondItem="mRu-0v-uht" secondAttribute="top" constant="15" id="Dae-2B-erf"/>
                         <constraint firstAttribute="trailing" secondItem="rpm-i7-vyl" secondAttribute="trailing" constant="15" id="EO3-RI-3kS"/>
@@ -97,9 +96,4 @@
             <point key="canvasLocation" x="165.21739130434784" y="-51.5625"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

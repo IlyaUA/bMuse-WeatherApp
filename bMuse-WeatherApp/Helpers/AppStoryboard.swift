@@ -10,8 +10,10 @@ import UIKit
 enum AppStoryboard: String {
     
     case main = "Main"
-    case hourly = "HourlyWeather"
+    case hourly = "Weather"
     case map = "MapPicker"
+    case navigation = "Navigation"
+    
     
     var instance: UIStoryboard {
         return UIStoryboard(name: rawValue, bundle: nil)
