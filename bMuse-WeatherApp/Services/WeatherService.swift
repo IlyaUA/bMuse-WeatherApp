@@ -28,8 +28,6 @@ class WeatherService {
         coordinates = (lat: UserDefaults.standard.double(forKey: "latitude"),
                        lng: UserDefaults.standard.double(forKey: "longitude"))
     }
-    
-    // MARK: Internal methods
 
     func updateWeather(type: WeatherType = .hourly, completion: @escaping ([WeatherEntity]?) -> Void) {
         weatherManager.getWeather(lat: coordinates.lat, lng: coordinates.lng) { [weak self] result in
@@ -186,9 +184,4 @@ class WeatherService {
         }
         coreDataService.saveContext(with: context)
     }
-}
-
-class location {
-    var lat: Double = UserDefaults.standard.double(forKey: "lat") 
-    var lng: Double = UserDefaults.standard.double(forKey: "lng")
 }
