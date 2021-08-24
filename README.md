@@ -7,6 +7,7 @@ Write an application that displays a weather forecast  Fetch the forecast by usi
 Added offline mod
 Ability to select a location on the map (Apple Maps) by long press
 Determining a city by coordinates using CoreLocation
+Completed the task of calculating the angle
 
 # Result
 
