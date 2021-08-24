@@ -12,6 +12,7 @@ final class LocationService {
     static let shared = LocationService()
     
     func getCityName(lat: Double, lng: Double, completion: @escaping (String) -> Void) {
+        
         let location = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lng))
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: { [unowned self] (placemarks, error) in
             if error != nil {

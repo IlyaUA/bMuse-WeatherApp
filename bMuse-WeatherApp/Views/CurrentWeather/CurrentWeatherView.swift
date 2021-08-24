@@ -9,16 +9,13 @@ import UIKit
 
 class CurrentWeatherView: NibView {
     
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var temperature: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var updatedAtLabel: UILabel!
-    
-    @IBOutlet weak var weatherIcon: UIImageView!
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var backgroundStackView: UIView!
-    
-    
+    @IBOutlet private weak var cityLabel: UILabel!
+    @IBOutlet private weak var temperature: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var updatedAtLabel: UILabel!
+    @IBOutlet private weak var weatherIcon: UIImageView!
+    @IBOutlet private weak var backgroundView: UIView!
+    @IBOutlet private weak var backgroundStackView: UIView!
     
     override func setupUI() {
         backgroundStackView.layer.borderWidth = 1

@@ -1,17 +1,15 @@
 //
-//  AlertService.swift
+//  AlertControllerExtension.swift
 //  bMuse-WeatherApp
 //
-//  Created by Ilya Kharebashvili on 23.08.2021.
+//  Created by Ilya Kharebashvili on 24.08.2021.
 //
 
 import UIKit
 
-final class AlertService {
+extension UIAlertController {
     
-    static let shared = AlertService()
-    
-    func universalAlert(title: String, message: String, actions: [(title: String, action: () -> Void)]?) -> UIAlertController {
+   static func universalAlert(title: String, message: String, actions: [(title: String, action: () -> Void)]?) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         if let actions = actions {
             for action in actions {

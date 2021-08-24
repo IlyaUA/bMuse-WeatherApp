@@ -34,12 +34,6 @@ final class WeatherViewController: UIViewController, WeatherView {
         presenter.viewDidLoad()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        presenter.viewWillAppear()
-    }
-    
     func setupCurrentWeather(temp: String, cityName: String, date: String, updAt: String, weatherIcon: UIImage?) {
         currentWeather.setTemperatureLabel(with: temp)
         currentWeather.setCityLabel(with: cityName)

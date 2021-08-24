@@ -12,11 +12,10 @@ protocol WeatherRouterProtocol: CommonRouter {
 }
 
 final class WeatherRouter: CommonRouterImplementation, WeatherRouterProtocol {
+    
     func openMapPickerScreen() {
         let mapScreen = MapPickerViewController.instantiateFrom(appStoryboard: .map)
         mapScreen.configurator = MapPickerConfigurator()
         push(mapScreen)
     }
-    
-    
 }

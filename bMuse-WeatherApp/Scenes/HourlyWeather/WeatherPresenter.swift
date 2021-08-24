@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol CoordinateUpdateDelegate: AnyObject {
-    func coordinateUpdated()
-}
-
 protocol WeatherPresenterProtocol: LifecyclePresenter {
     var router: WeatherRouterProtocol { get }
     func openMapPicker()
@@ -44,14 +40,10 @@ final class WeatherPresenter: WeatherPresenterProtocol {
     }
     
     func viewDidLoad() {
-        weatherService.coordinationDelegate = self
+        setObserver()
         setupView()
         preloadData()
         updateWeather()
-    }
-    
-    func viewWillAppear() {
-        
     }
     
     func openMapPicker() {
@@ -75,6 +67,18 @@ final class WeatherPresenter: WeatherPresenterProtocol {
     }
     
     // MARK: Private methods
+    
+    private func setObserver() {
+        _ = NotificationCenter
+            .default
+            .addObserver(
+                forName: Notification.Name("UpdateWeather"),
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                self?.updateWeather()
+            }
+    }
     
     private func setupView() {
         view?.setTableView()
@@ -123,13 +127,6 @@ extension WeatherPresenter {
         let cell = tableView.dequeueReusableCell(for: indexPath, cellType: WeatherCell.self)
         
         cell.prepareView(model: weatherData[indexPath.row], type: weatherType)
-        cell.backgroundColor = .clear
         return cell
-    }
-}
-
-extension WeatherPresenter: CoordinateUpdateDelegate {
-    func coordinateUpdated() {
-        updateWeather()
     }
 }

@@ -14,8 +14,7 @@ protocol MapPickerView: AnyObject {
 
 final class MapPickerViewController: UIViewController, MapPickerView {
     
-    @IBOutlet weak var mapView: MKMapView!
-    
+    @IBOutlet private weak var mapView: MKMapView!
     
     var configurator: MapPickerConfiguratorProtocol!
     var presenter: MapPickerPresenterProtocol!

@@ -14,28 +14,36 @@ class WeatherService {
     static let shared = WeatherService()
     private let weatherManager = WeatherManager()
     private let coreDataService = CoreDataServie()
-    weak var coordinationDelegate: CoordinateUpdateDelegate?
     
-    var coordinates: (lat: Double, lng: Double) = (lat: UserDefaults.standard.double(forKey: "latitude"),
-                                         lng: UserDefaults.standard.double(forKey: "longitude")) {
+    var coordinates: (lat: Double, lng: Double) {
         didSet {
-            coordinationDelegate?.coordinateUpdated()
+            UserDefaults.standard.set(coordinates.lat, forKey: "latitude")
+            UserDefaults.standard.set(coordinates.lng, forKey: "longitude")
+            UserDefaults.standard.synchronize()
+            NotificationCenter.default.post(name: Notification.Name("UpdateWeather"), object: nil)
         }
     }
+    
+    private init() {
+        coordinates = (lat: UserDefaults.standard.double(forKey: "latitude"),
+                       lng: UserDefaults.standard.double(forKey: "longitude"))
+    }
+    
+    // MARK: Internal methods
 
     func updateWeather(type: WeatherType = .hourly, completion: @escaping ([WeatherEntity]?) -> Void) {
-        weatherManager.getWeather(lat: coordinates.lat, lng: coordinates.lng) { [self] result in
+        weatherManager.getWeather(lat: coordinates.lat, lng: coordinates.lng) { [weak self] result in
             switch result {
             case .success(let value):
                 UserDefaults.standard.set(value.properties?.meta?.updatedAt?.formatted, forKey: "updatedAt")
                 UserDefaults.standard.synchronize()
-                saveWeatherToDB(with: value, type: type, completion: completion)
+                self?.saveWeatherToDB(with: value, type: type, completion: completion)
             case .failure(let error):
                 switch type {
                 case .hourly:
-                    getHourlyWeather(completion: completion)
+                    self?.getHourlyWeather(completion: completion)
                 case .daily:
-                    getdailyWeather(completion: completion)
+                    self?.getdailyWeather(completion: completion)
                 }
                 print(error.localizedDescription)
             }
@@ -92,6 +100,7 @@ class WeatherService {
     
     func getHourlyWeather(completion: @escaping ([WeatherEntity]?) -> Void) {
         guard let context = coreDataService.configureContext() else { return }
+        
         let fetchRequest: NSFetchRequest<WeatherEntity> = WeatherEntity.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         let fromDate = Date() as NSDate
@@ -110,10 +119,10 @@ class WeatherService {
     
     func getdailyWeather(completion: @escaping ([WeatherEntity]?) -> Void) {
         guard let context = coreDataService.configureContext() else { return }
+        
         let fetchRequest: NSFetchRequest<WeatherEntity> = WeatherEntity.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         let fromDate = Date.tomorrow as NSDate
-        
         fetchRequest.predicate = NSPredicate(format: "date >= %@", fromDate)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do {
@@ -151,6 +160,7 @@ class WeatherService {
     
     func getCurrentWeather() -> WeatherEntity? {
         guard let context = coreDataService.configureContext() else { return nil }
+        
         let fetchRequest: NSFetchRequest<WeatherEntity> = WeatherEntity.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         let current = Date() as NSDate
@@ -168,6 +178,7 @@ class WeatherService {
     
     func removeAllData() {
         guard let context = coreDataService.configureContext() else { return }
+        
         getAllWeather { objects in
             objects?.forEach { object in
                 context.delete(object)

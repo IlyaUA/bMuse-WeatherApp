@@ -59,5 +59,4 @@ public enum HTTPHeaderField: String {
 
 public enum Endpoint: String {
     case weatherApi = "https://api.met.no"
-    case locationApi = "https://api.bigdatacloud.net/"
 }
