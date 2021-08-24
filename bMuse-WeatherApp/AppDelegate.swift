@@ -22,6 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    // Set the initial coordinates (You can make a request to use geolocation and set from there
+    private func setDefaults() {
+        if UserDefaults.standard.double(forKey: "latitude") == 0.0 && UserDefaults.standard.double(forKey: "longitude") == 0.0 {
+            UserDefaults.standard.set(47.847050, forKey: "latitude")
+            UserDefaults.standard.set(35.140288, forKey: "longitude")
+            UserDefaults.standard.synchronize()
+        }
+    }
 
     // MARK: UISceneSession Lifecycle
 

@@ -14,14 +14,29 @@ class WeatherService {
     static let shared = WeatherService()
     private let weatherManager = WeatherManager()
     private let coreDataService = CoreDataServie()
-    var weathers: [WeatherEntity] = []
+    weak var coordinationDelegate: CoordinateUpdateDelegate?
     
+    var coordinates: (lat: Double, lng: Double) = (lat: UserDefaults.standard.double(forKey: "latitude"),
+                                         lng: UserDefaults.standard.double(forKey: "longitude")) {
+        didSet {
+            coordinationDelegate?.coordinateUpdated()
+        }
+    }
+
     func updateWeather(type: WeatherType = .hourly, completion: @escaping ([WeatherEntity]?) -> Void) {
-        weatherManager.getWeather(lat: 0, lng: 0) { [self] result in
+        weatherManager.getWeather(lat: coordinates.lat, lng: coordinates.lng) { [self] result in
             switch result {
             case .success(let value):
+                UserDefaults.standard.set(value.properties?.meta?.updatedAt?.formatted, forKey: "updatedAt")
+                UserDefaults.standard.synchronize()
                 saveWeatherToDB(with: value, type: type, completion: completion)
             case .failure(let error):
+                switch type {
+                case .hourly:
+                    getHourlyWeather(completion: completion)
+                case .weekly:
+                    getWeeklyWeather(completion: completion)
+                }
                 print(error.localizedDescription)
             }
         }
@@ -61,10 +76,17 @@ class WeatherService {
             case .weekly:
                 getWeeklyWeather(completion: completion)
             }
-            getWeeklyWeather(completion: completion)
-            print("Successfully saved +++")
         } else {
             print("SAVE ERROR")
+        }
+    }
+    
+    func preloadData(type: WeatherType = .hourly, completion: @escaping ([WeatherEntity]?) -> Void) {
+        switch type {
+        case .hourly:
+            getHourlyWeather(completion: completion)
+        case .weekly:
+            getWeeklyWeather(completion: completion)
         }
     }
     
@@ -75,10 +97,10 @@ class WeatherService {
         let fromDate = Date() as NSDate
         let toDate = Date.tomorrow as NSDate
         fetchRequest.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", fromDate, toDate)
-        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do {
-            weathers = try context.fetch(fetchRequest)
-            completion(weathers)
+            let objects = try context.fetch(fetchRequest)
+            completion(objects)
             print("Successfully fetched +++")
         } catch let error as NSError {
             completion(nil)
@@ -118,12 +140,29 @@ class WeatherService {
         let fetchRequest: NSFetchRequest<WeatherEntity> = WeatherEntity.fetchRequest()
         
         do {
-            weathers = try context.fetch(fetchRequest)
-            completion(weathers)
+            let objects = try context.fetch(fetchRequest)
+            completion(objects)
             print("Successfully fetched +++")
         } catch let error as NSError {
             completion(nil)
             NSLog("FETCH ERROR", error.localizedDescription)
+        }
+    }
+    
+    func getCurrentWeather() -> WeatherEntity? {
+        guard let context = coreDataService.configureContext() else { return nil }
+        let fetchRequest: NSFetchRequest<WeatherEntity> = WeatherEntity.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        let current = Date() as NSDate
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "date >= %@", current)
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let objects = try context.fetch(fetchRequest)
+            return objects.first
+        } catch {
+            return nil
         }
     }
     
@@ -136,6 +175,9 @@ class WeatherService {
         }
         coreDataService.saveContext(with: context)
     }
-    
-    
+}
+
+class location {
+    var lat: Double = UserDefaults.standard.double(forKey: "lat") 
+    var lng: Double = UserDefaults.standard.double(forKey: "lng")
 }

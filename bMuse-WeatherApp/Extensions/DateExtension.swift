@@ -27,11 +27,33 @@ extension Date {
     }
     var withoutTime: Date? {
         get {
+            // Removing time from date
             guard let date = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: self)) else {
                 return nil
             }
             return date
         }
     }
+    
+    var formatted: String {
+        let dateFormatter = DateFormatter()
+        // Set Date Format
+        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+        // Convert Date to String
+        return dateFormatter.string(from: self)
+    }
+    var time: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        return dateFormatter.string(from: self)
+    }
+    
+    var dateTime: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        return dateFormatter.string(from: self)
+    }
 }
+
+
 

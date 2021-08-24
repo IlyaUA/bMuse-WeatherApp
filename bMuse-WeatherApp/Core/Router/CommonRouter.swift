@@ -6,8 +6,8 @@
 //
 
 import UIKit
-//import Toast
 
+// Class for navigating the application. You can also add any loaders or toasts here and call like "router.presentToast or router.presentLoader"
 public protocol CommonRouter: AnyObject {
     var viewController: UIViewController? { get set }
     
@@ -16,6 +16,7 @@ public protocol CommonRouter: AnyObject {
     func dismiss(animated: Bool)
     func popToRoot(animated: Bool)
     func popViewController(animated: Bool)
+    func presentAlert(with alert: UIAlertController)
 }
 
 extension CommonRouter {
@@ -58,6 +59,10 @@ open class CommonRouterImplementation: CommonRouter {
     public func popViewController(animated: Bool) {
         navController?.popViewController(animated: animated)
     }
-
     
+    public func presentAlert(with alert: UIAlertController) {
+        DispatchQueue.main.async {
+            self.viewController?.present(alert, animated: true)
+        }
+    }
 }

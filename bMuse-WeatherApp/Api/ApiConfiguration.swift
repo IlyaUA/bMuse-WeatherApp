@@ -11,13 +11,15 @@ public protocol APIConfiguration: URLRequestConvertible {
     var method: HTTPMethod { get }
     var path: String { get }
     var parameters: RequestParams { get }
+    var url: String { get }
 }
 
 public extension APIConfiguration {
     
+    // Creating a request based on method, parameters and path
     func asURLRequest() throws -> URLRequest {
-        // TODO поменять
-        let url: URL = URL(string: Endpoint.weatherApi.rawValue)!
+        
+        let url: URL = URL(string: url)!
         
         var urlRequest = URLRequest(url: url.appendingPathComponent(path))
         urlRequest.httpMethod = method.rawValue
@@ -25,10 +27,8 @@ public extension APIConfiguration {
                             forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
         
         switch parameters {
-            
         case .body(let params):
             urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
-            
         case .url(let params):
             let queryParams = params.map { pair  in
                 return URLQueryItem(name: pair.key, value: "\(pair.value)")
@@ -59,4 +59,5 @@ public enum HTTPHeaderField: String {
 
 public enum Endpoint: String {
     case weatherApi = "https://api.met.no"
+    case locationApi = "https://api.bigdatacloud.net/"
 }

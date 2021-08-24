@@ -29,23 +29,44 @@
         <!--Hourly Weather View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="HourlyWeather" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="HourlyWeatherViewController" customModule="bMuse_WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HourlyWeatherViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="HourlyWeatherViewController" customModule="bMuse_WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HOURLY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oa-rC-GbS">
-                                <rect key="frame" x="174" y="438" width="66" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MVL-Fk-5ut" customClass="CurrentWeatherView" customModule="bMuse_WeatherApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="215"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0V4-N1-Cww">
+                                <rect key="frame" x="0.0" y="303" width="414" height="510"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="MVL-Fk-5ut" secondAttribute="trailing" id="53b-ME-8Qs"/>
+                            <constraint firstItem="MVL-Fk-5ut" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="AZk-9i-SLC"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="0V4-N1-Cww" secondAttribute="bottom" id="Fhh-G3-yum"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="0V4-N1-Cww" secondAttribute="trailing" id="L9a-Xn-y2g"/>
+                            <constraint firstItem="MVL-Fk-5ut" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="p6l-8B-A0M"/>
+                            <constraint firstItem="MVL-Fk-5ut" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.24" id="rAR-Dt-YTx"/>
+                            <constraint firstItem="0V4-N1-Cww" firstAttribute="top" secondItem="MVL-Fk-5ut" secondAttribute="bottom" id="sqW-za-GgW"/>
+                            <constraint firstItem="0V4-N1-Cww" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="vmM-dG-HXe"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="aSh-ck-ke7"/>
+                    <navigationItem key="navigationItem" id="aSh-ck-ke7">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="Wpg-uX-bmH">
+                            <connections>
+                                <action selector="openMapPicker:" destination="Y6W-OH-hqX" id="mMb-ZS-6GU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="currentWeather" destination="MVL-Fk-5ut" id="xYm-qa-LjY"/>
+                        <outlet property="tableView" destination="0V4-N1-Cww" id="274-w4-fqV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -8,9 +8,12 @@
 import Alamofire
 
 enum WeatherRouter: APIConfiguration {
-    
+
     case getWeather(lat: Double, lng: Double)
     
+    var url: String {
+        return Endpoint.weatherApi.rawValue
+    }
     
     var method: HTTPMethod {
         switch self {
@@ -30,12 +33,10 @@ enum WeatherRouter: APIConfiguration {
         switch self {
         case .getWeather(let lat, let lng):
             return .url([
-                "lat" : 47.847050,
-                "lon" : 35.140288
+                "lat" : lat,
+                "lon" : lng
             ])
         }
     }
-    
-    
 }
 
